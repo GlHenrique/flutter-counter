@@ -9,11 +9,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        color: Colors.blue,
-        alignment: Alignment.center,
-        child: const Text('Olá mundão'),
+    return const MaterialApp(home: HomePage());
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            'Pode entrar!',
+            style: TextStyle(
+                fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            '11',
+            style: TextStyle(color: Colors.white, fontSize: 40),
+          ),
+        ],
       ),
     );
   }
