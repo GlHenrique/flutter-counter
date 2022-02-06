@@ -16,21 +16,36 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int count = 0;
+  bool get isEmpty => count == 0;
+  bool get isFull => count == 20;
+
   void decrement() {
-    print('Decrement');
+    if (!isEmpty) {
+      setState(() {
+        count--;
+      });
+    }
   }
 
   void increment() {
-    print('Increment');
+    if (isFull) return;
+    setState(() {
+      count++;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -39,18 +54,19 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Pode entrar caraio!',
+            Text(
+              isFull ? 'Lotou!' : 'Pode entrar caraio!',
               style: TextStyle(
                   fontSize: 26,
-                  color: Colors.black,
+                  color: isFull ? Colors.red : Colors.black,
                   fontWeight: FontWeight.bold),
             ),
-            const Padding(
-              padding: EdgeInsets.all(32),
+            Padding(
+              padding: const EdgeInsets.all(32),
               child: Text(
-                '0',
-                style: TextStyle(color: Colors.black, fontSize: 40),
+                count.toString(),
+                style: TextStyle(
+                    color: isFull ? Colors.red : Colors.green, fontSize: 40),
               ),
             ),
             Row(
