@@ -29,15 +29,12 @@ class _HomePageState extends State<HomePage> {
   bool get isFull => count == 20;
 
   void decrement() {
-    if (!isEmpty) {
-      setState(() {
-        count--;
-      });
-    }
+    setState(() {
+      count--;
+    });
   }
 
   void increment() {
-    if (isFull) return;
     setState(() {
       count++;
     });
@@ -73,10 +70,12 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  onPressed: decrement,
+                  onPressed: isEmpty ? null : decrement,
                   style: TextButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      primary: Colors.black,
+                      backgroundColor: isEmpty
+                          ? Colors.white.withOpacity(0.2)
+                          : Colors.white,
+                      primary: Colors.blue,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16)),
                       fixedSize: const Size(100, 100)),
@@ -85,10 +84,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(width: 32),
                 TextButton(
-                    onPressed: increment,
+                    onPressed: isFull ? null : increment,
                     style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        primary: Colors.black,
+                        backgroundColor: isFull
+                            ? Colors.white.withOpacity(0.2)
+                            : Colors.white,
+                        primary: Colors.blue,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16)),
                         fixedSize: const Size(100, 100)),
